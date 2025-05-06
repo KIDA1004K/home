@@ -16,7 +16,6 @@ public class HitText : MonoBehaviour
 
     private void Start()
     {
-
     }
 
     private void Update()

@@ -38,10 +38,12 @@ public class PoolManager : MonoBehaviour
         if (pool_dict.ContainsKey(key) == false)
         {
             // 풀 추가
+            AddPool(key);
         }
         if (pool_dict[key].Pool.Count <= 0) // 풀 딕셔너리의 큐 갯수가 0보다 작으면
         {
             // 큐 추가
+            AddQueue(key);
         }
         // 다 통과했으면 벨류 반환 벨류는 IPool 을 상속한 클래스 (여기서는 ObjectPool)임
         return pool_dict[key];
@@ -56,17 +58,20 @@ public class PoolManager : MonoBehaviour
         GameObject obj = new GameObject($"{key} Pool");
         // 풀 클래스 만듦
         ObjectPool pool = new ObjectPool();
-        // 오브젝트에 풀 클래스 컴포넌트로 넣기
+        // 오브젝트에 풀 클래스 컴포넌트로 넣기xx 컴포넌트가 아니ㅏ 자식으로 넣기
         pool_dict.Add(key, pool);
-        pool.Trans.parent = obj.transform;
+        pool.Trans = obj.transform;
         return obj;
     }
 
-    // 풀이 있는데 오브젝트가 부족하면 Quene에 추가 로직
-    public void AddPool(string key)
+    //풀이 있는데 오브젝트가 부족하면 Quene에 추가 로직
+    public void AddQueue(string key)
     {
-        
-    } 
+        GameObject obj = Manager.Instance.ResorceInstantiate(key);
+        obj.transform.parent = pool_dict[key].Trans;
+
+        pool_dict[key].Release(obj);
+    }
 
 
 }

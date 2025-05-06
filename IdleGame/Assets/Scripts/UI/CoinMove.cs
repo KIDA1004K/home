@@ -102,7 +102,7 @@ public class CoinMove : MonoBehaviour
     {
         for (int i = 0; i < rects.Length; i++)
         {
-            var distance = Vector2.Distance(rects[i].anchoredPosition, B_Canvas.instance.Coin.transform.position);
+            var distance = Vector2.Distance(rects[i].position, B_Canvas.instance.Coin.transform.position);
 
             if(distance > range)
             {

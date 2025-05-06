@@ -2,15 +2,39 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public int HP;
-    
+    public float speed;
+    public float HP;
+    public float startHP = 3;
+    public Animator animator;
 
-    public void GetDamage(int dmg)
+    protected virtual void Start()
     {
-        HP -= dmg;
-        if (HP <= 0)
-        {
-            Debug.Log("사망");
-        }
+        animator = GetComponent<Animator>();
     }
+    protected virtual void TakeDamage(float damage)
+    {
+        HP -= damage;
+        
+    }
+
+    protected virtual void OnDie()
+    {
+        //죽음이펙트
+        //코인드랍
+        
+
+        //풀링 해제
+        SetAnimator("ISIDLE");
+    }
+
+    private void SetAnimator(string temp)
+    {
+        animator.SetBool("ISIDLE", false);
+        animator.SetBool("ISWALK", false);
+
+        animator.SetBool(temp, true);
+
+
+    }
+
 }

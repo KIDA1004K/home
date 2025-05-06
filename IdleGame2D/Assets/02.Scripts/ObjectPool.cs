@@ -20,6 +20,7 @@ public class ObjectPool :  IPool
             action.Invoke(obj);
         }
         return obj;
+
     }
 
     public void Release(GameObject obj, Action<GameObject> action = null)
